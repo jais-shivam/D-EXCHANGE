@@ -9,36 +9,41 @@
     "node": "8.11.1"
   },
   "dependencies": {
-    "@truffle/hdwallet-provider": "2.0.3",
-    "apexcharts": "3.33.1",
+    "@truffle/hdwallet-provider": "2.0.8",
+    "apexcharts": "3.35.3",
+    "assert": "^2.0.0",
     "babel-polyfill": "6.26.0",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-es2015": "6.24.1",
-    "babel-preset-stage-2": "6.24.1",
-    "babel-preset-stage-3": "6.24.1",
     "babel-register": "6.26.0",
     "bootstrap": "5.1.3",
     "chai": "4.3.6",
     "chai-as-promised": "7.1.1",
     "chai-bignumber": "3.0.0",
-    "dotenv": "16.0.0",
+    "crypto": "^1.0.1",
+    "crypto-browserify": "^3.12.0",
+    "crypto-js": "^4.1.1",
+    "dotenv": "16.0.1",
+    "https-browserify": "^1.0.0",
     "lodash": "4.17.21",
-    "moment": "2.29.1",
+    "moment": "2.29.3",
     "openzeppelin-solidity": "4.5.0",
-    "react": "17.0.2",
-    "react-apexcharts": "1.3.9",
-    "react-bootstrap": "2.1.2",
-    "react-dom": "17.0.2",
-    "react-redux": "7.2.6",
-    "react-scripts": "5.0.0",
-    "redux": "4.1.2",
+    "os-browserify": "^0.3.0",
+    "react": "18.1.0",
+    "react-apexcharts": "1.4.0",
+    "react-bootstrap": "2.4.0",
+    "react-dom": "18.1.0",
+    "react-redux": "8.0.2",
+    "react-scripts": "5.0.1",
+    "redux": "4.2.0",
     "redux-logger": "3.0.6",
     "reselect": "4.1.5",
-    "solidity-coverage": "0.7.20",
-    "truffle": "5.5.0",
+    "solidity-coverage": "0.7.21",
+    "stream": "0.0.2",
+    "stream-http": "^3.2.0",
+    "truffle": "5.5.15",
     "truffle-flattener": "1.6.0",
     "truffle-hdwallet-provider-privkey": "0.3.0",
-    "web3": "1.7.0"
+    "web3": "1.7.3",
+    "webpack": "^4.46.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -63,5 +68,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.18.2",
+    "web-vitals": "^2.1.4"
+  },
+  "overrides": {
+    "autoprefixer": "10.4.7"
   }
 }

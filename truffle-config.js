@@ -1,5 +1,8 @@
+// It helps us to work with es6 feature
 require('babel-register');
 require('babel-polyfill');
+
+// Inject env veriables to truffle
 require('dotenv').config();
 
 module.exports = {
@@ -14,6 +17,7 @@ module.exports = {
   contracts_build_directory: './src/abis/',
   compilers: {
     solc: {
+      version: "^0.8.4",
       optimizer: {
         enabled: true,
         runs: 200

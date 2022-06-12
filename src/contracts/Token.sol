@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.8.0 <0.9.0;
 
 
 contract Token{
@@ -15,27 +16,31 @@ contract Token{
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
-    constructor() public{
+    // Modifiers
+    modifier addressCheck(address _address){
+        require(_address!=address(0),"Invalid Address provided");
+        _;
+    }
+
+    constructor() {
         totalSupply=1000000*(10**decimals);
         balanceOf[msg.sender]=totalSupply;
     }
 
     function transfer(address _to, uint256 _value) public returns(bool success){
-        require(balanceOf[msg.sender]>=_value);
+        require(balanceOf[msg.sender]>=_value,"Insufficient balance");
         _transfer(msg.sender, _to, _value);
         return true;
     }
     //Internal function
-    function _transfer(address _from, address _to, uint256 _value) internal{
-        require(_to!=address(0));
+    function _transfer(address _from, address _to, uint256 _value) addressCheck(_to)internal{
         balanceOf[_from]-=_value;
         balanceOf[_to]+=_value;
         emit Transfer(_from, _to, _value);
     }
 
     // Approve Tokens
-    function approve(address _spender, uint256 _value) public returns(bool success){
-        require(_spender!=address(0));
+    function approve(address _spender, uint256 _value) public addressCheck(_spender) returns(bool success){
         allowance[msg.sender][_spender]=_value;
         emit Approval(msg.sender, _spender, _value);
         return true;
@@ -43,8 +48,8 @@ contract Token{
 
     // Transfer from
     function transferFrom(address _from, address _to, uint256 _value) public returns(bool success){
-        require(balanceOf[_from]>=_value);
-        require(allowance[_from][msg.sender]>=_value);
+        require(balanceOf[_from]>=_value,"Insufficient balance");
+        require(allowance[_from][msg.sender]>=_value,"Amount is greater than allowed amount");
         allowance[_from][msg.sender]-=_value;//reseting(adjusting) approved token
         _transfer(_from, _to, _value);
         return true;
