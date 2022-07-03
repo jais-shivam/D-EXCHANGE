@@ -7,7 +7,9 @@ export const exchangeSlice= createSlice({
        cancelledOrderLoaded:[],
        filledOrdersLoaded:[],
        allOrders:[],
-       openOrder:[]
+       openOrder:[],
+       orderCancelling:false,
+       orderCancelled:false
     },
     reducers:{
         setExchangeContract: (state,action)=>{
@@ -25,6 +27,13 @@ export const exchangeSlice= createSlice({
         setOpenOrder: (state,action)=>{
             state.openOrder=action.payload;
         },
+        setOrderCancelling:(state,action)=>{
+            state.orderCancelling=action.payload;
+        },
+        setOrderCancelled:(state,action)=>{
+            // state.orderCancelling=false;
+            state.cancelledOrderLoaded=[...state.cancelledOrderLoaded,action.payload];
+        }
     }
 });
 
@@ -33,7 +42,9 @@ export const {
     setCancelledOrdersLoaded, 
     setFilledOrdersLoaded, 
     setAllOrdersLoaded,
-    setOpenOrder
+    setOpenOrder,
+    setOrderCancelling,
+    setOrderCancelled
 }= exchangeSlice.actions;
 export default exchangeSlice.reducer;
 
@@ -42,3 +53,5 @@ export const selectCancelledOrdersLoaded=(state)=> state.exchange.cancelledOrder
 export const selectFilledOrdersLoaded=(state)=> state.exchange.filledOrdersLoaded;
 export const selectAllOrdersLoaded=(state)=> state.exchange.allOrders;
 export const selectOpenOrder=(state)=> state.exchange.openOrder;
+export const selectOrderCancelling=(state)=> state.exchange.orderCancelling;
+export const selectOrderCancelled=(state)=> state.exchange.orderCancelled;

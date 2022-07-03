@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tabs, Tab } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ETHER_ADDRESS, GREEN, RED } from "../helpers";
 import {
   selectFilledOrdersLoaded,
   selectOpenOrder,
+  setOrderCancelling,
+  selectExchangeContract,
+  selectOrderCancelling,
+  setOrderCancelled,
 } from "../store/exchangeSlice";
 import { selectAccount } from "../store/web3Slice";
 import { decorateOrder } from "./Decorator";
@@ -13,6 +17,9 @@ import { Spinner } from "./Spinner";
 export const MyTransactions = () => {
   const filledOrders = useSelector(selectFilledOrdersLoaded);
   const myAccount = useSelector(selectAccount)[0];
+  const dispatch = useDispatch();
+  const exchange = useSelector(selectExchangeContract);
+  const orderCancelling = useSelector(selectOrderCancelling);
   console.log("filledOrders", filledOrders);
   const openOrders = useSelector(selectOpenOrder).buyOrders;
   let myOpenOrders = openOrders
@@ -64,8 +71,8 @@ export const MyTransactions = () => {
                   <th>Cancel</th>
                 </tr>
               </thead>
-              {myOpenOrders ? (
-                showMyOpenOrders(myOpenOrders)
+              {myOpenOrders && !orderCancelling ? (
+                showMyOpenOrders(myOpenOrders, dispatch, exchange, myAccount)
               ) : (
                 <Spinner type="table" />
               )}
@@ -121,7 +128,7 @@ const decorateMyFilledOrder = (order, account) => {
   };
 };
 
-const showMyOpenOrders = (myOpenOrders) => {
+const showMyOpenOrders = (myOpenOrders, dispatch, exchange, account) => {
   return (
     <tbody>
       {myOpenOrders.map((order) => {
@@ -133,10 +140,41 @@ const showMyOpenOrders = (myOpenOrders) => {
             <td className={`text-${order.orderTypeClass}`}>
               {order.tokenPrice}
             </td>
-            <td className="text-muted">x</td>
+            <td
+              className="text-muted cancel-order"
+              onClick={(e) => {
+                cancelOrder(dispatch, exchange, order, account);
+              }}
+            >
+              X
+            </td>
           </tr>
         );
       })}
     </tbody>
   );
+};
+
+export const cancelOrder = (dispatch, exchange, order, account) => {
+  exchange.methods
+    .cancelOrder(order.id)
+    .send({ from: account })
+    .on("transactionHash", (hash) => {
+      dispatch(setOrderCancelling(true));
+      //  subscribeToEvents(dispatch,exchange);
+    })
+    .on("error", (error) => {
+      console.log(error);
+      window.alert("There was an error!");
+    });
+};
+
+export const subscribeToEvents = async (dispatch, exchange) => {
+  // const oldCancelledOrder=useSelector(selectCancelledOrdersLoaded);
+  console.log("subscribeToEvents");
+  exchange.events.Cancel({}, (error, event) => {
+    dispatch(setOrderCancelling(false));
+    // const data={event.returnValues,}
+    dispatch(setOrderCancelled(event.returnValues));
+  });
 };

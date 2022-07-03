@@ -14,6 +14,7 @@ import {
 } from "../store/exchangeSlice";
 import { ETHER_ADDRESS, ether, tokens, GREEN, RED } from "../helpers";
 import moment from "moment";
+import { subscribeToEvents } from "./MyTransactions";
 
 export const SmartContractInteraction = () => {
   const dispatch = useDispatch();
@@ -69,6 +70,7 @@ export const SmartContractInteraction = () => {
         );
         // console.log("exchange", exchange);
         dispatch(setExchangeContract(exchange));
+        subscribeToEvents(dispatch, exchange);
         return exchange;
       } catch (err) {
         window.alert(
@@ -106,7 +108,9 @@ export const SmartContractInteraction = () => {
     let filledOrders = tradeStream.map((event) => event.returnValues);
     sortedFilledOrders = filledOrders.sort((a, b) => a.timestamp - b.timestamp); //assending sort
     sortedFilledOrders = decorateFilledOrders(sortedFilledOrders); //decorate the orders
-    sortedFilledOrders = sortedFilledOrders.sort((a, b) => b.timestamp - a.timestamp); //desending sort
+    sortedFilledOrders = sortedFilledOrders.sort(
+      (a, b) => b.timestamp - a.timestamp
+    ); //desending sort
     // Add filled orders to the redux store
     dispatch(setFilledOrdersLoaded(sortedFilledOrders));
 
