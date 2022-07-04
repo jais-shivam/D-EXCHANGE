@@ -11,10 +11,14 @@ import {
   setCancelledOrdersLoaded,
   setFilledOrdersLoaded,
   setAllOrdersLoaded,
+  setOrderCancelling,
+  setOrderCancelled,
+  setOrderFilling,
+  setOrderFilled
 } from "../store/exchangeSlice";
 import { ETHER_ADDRESS, ether, tokens, GREEN, RED } from "../helpers";
 import moment from "moment";
-import { subscribeToEvents } from "./MyTransactions";
+// import { subscribeToEvents } from "./MyTransactions";
 
 export const SmartContractInteraction = () => {
   const dispatch = useDispatch();
@@ -186,4 +190,20 @@ export const SmartContractInteraction = () => {
   const exchangeContract = useSelector(selectExchangeContract);
   loadAllOrder(exchangeContract);
   return <></>;
+};
+
+export const subscribeToEvents = async (dispatch, exchange) => {
+  // const oldCancelledOrder=useSelector(selectCancelledOrdersLoaded);
+  // console.log("subscribeToEvents");
+  exchange.events.Cancel({}, (error, event) => {
+    dispatch(setOrderCancelling(false));
+    // const data={event.returnValues,}
+    dispatch(setOrderCancelled(event.returnValues));
+  });
+
+  exchange.events.Trade({}, (error, event) => {
+    dispatch(setOrderFilling(false));
+    // const data={event.returnValues,}
+    dispatch(setOrderFilled(event.returnValues));
+  });
 };

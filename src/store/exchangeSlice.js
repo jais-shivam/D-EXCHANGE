@@ -9,7 +9,9 @@ export const exchangeSlice= createSlice({
        allOrders:[],
        openOrder:[],
        orderCancelling:false,
-       orderCancelled:false
+       orderCancelled:null,
+       orderFilling:false,
+       orderFilled:null
     },
     reducers:{
         setExchangeContract: (state,action)=>{
@@ -33,7 +35,21 @@ export const exchangeSlice= createSlice({
         setOrderCancelled:(state,action)=>{
             // state.orderCancelling=false;
             state.cancelledOrderLoaded=[...state.cancelledOrderLoaded,action.payload];
-        }
+        },
+        setOrderFilling:(state,action)=>{
+            state.orderFilling=action.payload;
+        },
+        setOrderFilled:(state,action)=>{
+            console.log('action.payload',action.payload.id);
+            let data;
+            const index=state.filledOrdersLoaded.findIndex(order=>order.id===action.payload.id);
+            if(index===-1){
+                state.filledOrdersLoaded=[...state.filledOrdersLoaded,action.payload]
+            }else{
+                // state.filledOrdersLoaded=state.filledOrdersLoaded
+            }
+            // state.filledOrdersLoaded=[...state.filledOrdersLoaded, data];
+        },
     }
 });
 
@@ -44,7 +60,9 @@ export const {
     setAllOrdersLoaded,
     setOpenOrder,
     setOrderCancelling,
-    setOrderCancelled
+    setOrderCancelled,
+    setOrderFilling,
+    setOrderFilled
 }= exchangeSlice.actions;
 export default exchangeSlice.reducer;
 
@@ -55,3 +73,5 @@ export const selectAllOrdersLoaded=(state)=> state.exchange.allOrders;
 export const selectOpenOrder=(state)=> state.exchange.openOrder;
 export const selectOrderCancelling=(state)=> state.exchange.orderCancelling;
 export const selectOrderCancelled=(state)=> state.exchange.orderCancelled;
+export const selectOrderFilling=(state)=> state.exchange.orderFilling;
+export const selectOrderFilled=(state)=> state.exchange.orderFilled;

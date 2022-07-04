@@ -12,7 +12,7 @@ export const PriceChart = () => {
   let filledOrders = useSelector(selectFilledOrdersLoaded);
   filledOrders = filledOrders.slice().sort((a, b) => a.timestamp - b.timestamp);
   filledOrders = filledOrders.map((order) => decorateOrder(order));
-  console.log(filledOrders);
+  // console.log(filledOrders);
   // Get last 2 order for final price & price change
   let [secondLastOrder, lastOrder] = filledOrders.slice(
     filledOrders.length - 2,
@@ -20,7 +20,7 @@ export const PriceChart = () => {
   );
   // get last order price
   const lastPrice = get(lastOrder, "tokenPrice", 0);
-  console.log('lastPrice',lastPrice);
+  // console.log('lastPrice',lastPrice);
   // get second last order price
   const secondLastPrice = get(secondLastOrder, "tokenPrice", 0);
 
