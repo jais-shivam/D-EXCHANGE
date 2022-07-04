@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Tabs, Tab } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { ETHER_ADDRESS, GREEN, RED } from "../helpers";
@@ -20,26 +20,26 @@ export const MyTransactions = () => {
   const dispatch = useDispatch();
   const exchange = useSelector(selectExchangeContract);
   const orderCancelling = useSelector(selectOrderCancelling);
-  console.log("filledOrders", filledOrders);
+  // console.log("filledOrders", filledOrders);
   const openOrders = useSelector(selectOpenOrder).buyOrders;
   let myOpenOrders = openOrders
     .slice()
     .sort((a, b) => a.timestamp - b.timestamp);
-  console.log(myOpenOrders);
+  // console.log(myOpenOrders);
 
   //   console.log('user',typeof(filledOrders[0].user));
-  console.log("myAccount", typeof myAccount);
+  // console.log("myAccount", typeof myAccount);
   let myFilledOrders = filledOrders.filter(
     (o) => o.user === myAccount || o.userFill === myAccount
   );
 
-  console.log(myFilledOrders);
+  // console.log(myFilledOrders);
   // Sort by date ascending
   myFilledOrders = myFilledOrders.sort((a, b) => a.timestamp - b.timestamp);
-  console.log("2", myFilledOrders);
+  // console.log("2", myFilledOrders);
   //decorate orders - add display attributes
   myFilledOrders = decorateMyFilledOrders(myFilledOrders, myAccount);
-  console.log(myFilledOrders);
+  // console.log(myFilledOrders);
 
   return (
     <div className="card bg-dark text-white">
@@ -169,12 +169,3 @@ export const cancelOrder = (dispatch, exchange, order, account) => {
     });
 };
 
-export const subscribeToEvents = async (dispatch, exchange) => {
-  // const oldCancelledOrder=useSelector(selectCancelledOrdersLoaded);
-  console.log("subscribeToEvents");
-  exchange.events.Cancel({}, (error, event) => {
-    dispatch(setOrderCancelling(false));
-    // const data={event.returnValues,}
-    dispatch(setOrderCancelled(event.returnValues));
-  });
-};
