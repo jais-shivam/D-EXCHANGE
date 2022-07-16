@@ -1,7 +1,7 @@
 import React from "react";
 import { Spinner } from "./Spinner";
 import Chart from "react-apexcharts";
-import { chartOptions, dummyData } from "./PriceChart.config";
+import { chartOptions } from "./PriceChart.config";
 import { useSelector } from "react-redux";
 import { selectFilledOrdersLoaded } from "../store/exchangeSlice";
 import { decorateOrder } from "./Decorator";

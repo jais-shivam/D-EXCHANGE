@@ -3,7 +3,7 @@ import Web3 from "web3";
 import Token from "../abis/Token.json";
 import Exchange from "../abis/Exchange.json";
 import { useDispatch, useSelector } from "react-redux";
-import { setWeb3Loaded, setAccount } from "../store/web3Slice";
+import { setWeb3Loaded, setAccount, setEtherBalance, selectAccount, selectWeb3 } from "../store/web3Slice";
 import { setTokenLoaded } from "../store/tokenSlice";
 import {
   selectExchangeContract,
@@ -16,8 +16,9 @@ import {
   setOrderFilling,
   setOrderFilled
 } from "../store/exchangeSlice";
-import { ETHER_ADDRESS, ether, tokens, GREEN, RED } from "../helpers";
+import { ETHER_ADDRESS, ether, tokens, GREEN, RED, formatBalance } from "../helpers";
 import moment from "moment";
+import { setBalancesLoaded, setBalancesLoading, setExchangeEtherBalance } from "../store/balanceSlice";
 // import { subscribeToEvents } from "./MyTransactions";
 
 export const SmartContractInteraction = () => {
@@ -205,5 +206,19 @@ export const subscribeToEvents = async (dispatch, exchange) => {
     dispatch(setOrderFilling(false));
     // const data={event.returnValues,}
     dispatch(setOrderFilled(event.returnValues));
+  });
+
+  exchange.events.Deposit({}, (error, event) => {
+    // window.location.reload(false);
+    dispatch(setBalancesLoading(false));
+    dispatch(setExchangeEtherBalance(formatBalance( event.returnValues.balance)))
+    console.log('balance',event);
+  });
+
+  exchange.events.Withdraw({}, (error, event) => {
+    // window.location.reload(false);
+    dispatch(setBalancesLoading(false));
+    dispatch(setExchangeEtherBalance(formatBalance( event.returnValues.balance)))
+    console.log('balance',event);
   });
 };

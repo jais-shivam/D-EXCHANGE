@@ -8,7 +8,6 @@ import {
   setOrderCancelling,
   selectExchangeContract,
   selectOrderCancelling,
-  setOrderCancelled,
 } from "../store/exchangeSlice";
 import { selectAccount } from "../store/web3Slice";
 import { decorateOrder } from "./Decorator";
