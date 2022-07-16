@@ -8,7 +8,9 @@ export const balanceSlice= createSlice({
         balancesLoaded: false,
         balancesLoading:false,
         etherDepositAmountChanged:null,
-        etherWithdrawAmountChanged:null
+        etherWithdrawAmountChanged:null,
+        tokenDepositAmountChanged:null,
+        tokenWithdrawAmountChanged:null
     },
     reducers:{
 
@@ -31,6 +33,12 @@ export const balanceSlice= createSlice({
         setEtherWithdrawAmountChanged:(state,action)=>{
             state.etherWithdrawAmountChanged=action.payload;
         },
+        setTokenDepositAmountChanged:(state,action)=>{
+            state.tokenDepositAmountChanged=action.payload;
+        },
+        setTokenWithdrawAmountChanged:(state,action)=>{
+            state.tokenWithdrawAmountChanged=action.payload;
+        },
     }
 }); 
 
@@ -40,7 +48,9 @@ export const {
     setBalancesLoaded,
     setBalancesLoading,
     setEtherDepositAmountChanged,
-    setEtherWithdrawAmountChanged
+    setEtherWithdrawAmountChanged,
+    setTokenDepositAmountChanged,
+    setTokenWithdrawAmountChanged
 }= balanceSlice.actions;
 export default balanceSlice.reducer;
 
@@ -50,3 +60,5 @@ export const selectBalancesLoaded=(state)=> state.balances.balancesLoaded;
 export const selectBalancesLoading=(state)=> state.balances.balancesLoading;
 export const selectEtherDepositAmountChanged=(state)=> state.balances.etherDepositAmountChanged;
 export const selectEtherWithdrawAmountChanged=(state)=> state.balances.etherWithdrawAmountChanged;
+export const selectTokenDepositAmountChanged=(state)=> state.balances.tokenDepositAmountChanged;
+export const selectTokenWithdrawAmountChanged=(state)=> state.balances.tokenWithdrawAmountChanged;

@@ -19,7 +19,6 @@ import {
 import { ETHER_ADDRESS, ether, tokens, GREEN, RED, formatBalance } from "../helpers";
 import moment from "moment";
 import { setBalancesLoaded, setBalancesLoading, setExchangeEtherBalance } from "../store/balanceSlice";
-// import { subscribeToEvents } from "./MyTransactions";
 
 export const SmartContractInteraction = () => {
   const dispatch = useDispatch();
@@ -209,19 +208,11 @@ export const subscribeToEvents = async (dispatch, exchange) => {
   });
 
   exchange.events.Deposit({}, (error, event) => {
-    // window.location.reload(false);
-    const web3 = new Web3(window.ethereum);
-    dispatch(setWeb3Loaded(web3));
-    dispatch(setExchangeEtherBalance(formatBalance( event.returnValues.balance)))
     dispatch(setBalancesLoading(false));
     console.log('balance',event);
   });
 
   exchange.events.Withdraw({}, (error, event) => {
-    // window.location.reload(false);
-    const web3 = new Web3(window.ethereum);
-    dispatch(setWeb3Loaded(web3));
-    dispatch(setExchangeEtherBalance(formatBalance( event.returnValues.balance)));
     dispatch(setBalancesLoading(false));
     console.log('balance',event);
   });
