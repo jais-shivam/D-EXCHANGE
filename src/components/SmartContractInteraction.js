@@ -14,7 +14,10 @@ import {
   setOrderCancelling,
   setOrderCancelled,
   setOrderFilling,
-  setOrderFilled
+  setOrderFilled,
+  setOrderMade,
+  setBuyOrderMaking,
+  setSellOrderMaking
 } from "../store/exchangeSlice";
 import { ETHER_ADDRESS, ether, tokens, GREEN, RED, formatBalance } from "../helpers";
 import moment from "moment";
@@ -216,4 +219,10 @@ export const subscribeToEvents = async (dispatch, exchange) => {
     dispatch(setBalancesLoading(false));
     console.log('balance',event);
   });
+
+  exchange.events.Order({}, (error, event) => {
+    dispatch(setBuyOrderMaking(false));
+    dispatch(setSellOrderMaking(false));
+    dispatch(setOrderMade(event.returnValues))
+  })
 };
