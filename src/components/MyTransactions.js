@@ -20,11 +20,11 @@ export const MyTransactions = () => {
   const exchange = useSelector(selectExchangeContract);
   const orderCancelling = useSelector(selectOrderCancelling);
   // console.log("filledOrders", filledOrders);
-  const openOrders = useSelector(selectOpenOrder).buyOrders;
+  const openOrders = useSelector(selectOpenOrder).buyOrders.concat(useSelector(selectOpenOrder).sellOrders);
   let myOpenOrders = openOrders
     .slice()
     .sort((a, b) => a.timestamp - b.timestamp);
-  // console.log(myOpenOrders);
+  console.log("myOpenOrders",myOpenOrders);
 
   //   console.log('user',typeof(filledOrders[0].user));
   // console.log("myAccount", typeof myAccount);
