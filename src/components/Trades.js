@@ -31,8 +31,8 @@ export const Trades = () => {
             <thead>
               <tr>
                 <th>Time</th>
-                <th>DAPP</th>
-                <th>DAPP/ETH</th>
+                <th>SJ</th>
+                <th>SJ/ETH</th>
               </tr>
             </thead>
             { filledOrders? showFilledOrders(filledOrders) : <Spinner type="table" />}

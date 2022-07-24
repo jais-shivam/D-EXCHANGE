@@ -108,8 +108,8 @@ const showOrderBook = (dispatch, exchange, orders, account) => {
       {orders.sellOrders.map((order) => renderOrder(dispatch, exchange, order, account))}
       <tr>
         <th>Time</th>
-        <th>DAPP</th>
-        <th>DAPP/ETH</th>
+        <th>SJ</th>
+        <th>SJ/ETH</th>
       </tr>
       {orders.buyOrders.map((order) => renderOrder(dispatch, exchange, order, account))}
     </tbody>

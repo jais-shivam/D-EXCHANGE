@@ -146,7 +146,7 @@ const showForm = (
         </form>
         {/* -----------Token------------- */}
         <table className="table table-dark table-sm small">
-          {rendorTokenAndAmount("DAPP", tokenBalance, exchangeTokenBalance)}
+          {rendorTokenAndAmount("SJ", tokenBalance, exchangeTokenBalance)}
         </table>
         <form
           className="row"
@@ -165,7 +165,7 @@ const showForm = (
           <div className="col-12 col-sm pr-sm-2">
             <input
               type="text"
-              placeholder="DAPP Amount"
+              placeholder="SJ Amount"
               onChange={(e) =>
                 dispatch(setTokenDepositAmountChanged(e.target.value))
               }
@@ -224,7 +224,7 @@ const showForm = (
         </form>
 
         <table className="table table-dark table-sm small">
-            {rendorTokenAndAmount("DAPP", tokenBalance, exchangeTokenBalance)}
+            {rendorTokenAndAmount("SJ", tokenBalance, exchangeTokenBalance)}
         </table>
 
         <form
@@ -244,7 +244,7 @@ const showForm = (
           <div className="col-12 col-sm pr-sm-2">
             <input
               type="text"
-              placeholder="DAPP Amount"
+              placeholder="SJ Amount"
               onChange={(e) =>
                 dispatch(setTokenWithdrawAmountChanged(e.target.value))
               }

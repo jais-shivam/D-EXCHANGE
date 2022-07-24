@@ -50,8 +50,8 @@ export const MyTransactions = () => {
               <thead>
                 <tr>
                   <th>Time</th>
-                  <th>DAPP</th>
-                  <th>DAPP/ETH</th>
+                  <th>SJ</th>
+                  <th>SJ/ETH</th>
                 </tr>
               </thead>
               {myFilledOrders ? (
@@ -66,7 +66,7 @@ export const MyTransactions = () => {
               <thead>
                 <tr>
                   <th>Amount</th>
-                  <th>DAPP/ETH</th>
+                  <th>SJ/ETH</th>
                   <th>Cancel</th>
                 </tr>
               </thead>

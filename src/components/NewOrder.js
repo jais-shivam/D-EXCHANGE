@@ -67,7 +67,7 @@ const showForm = (
             }}
           >
             <div className="form-group small">
-              <label>Buy Amount (DAPP)</label>
+              <label>Buy Amount (SJ)</label>
               <div className="input-group">
                 <input
                   type="text"
@@ -116,7 +116,7 @@ const showForm = (
             }}
           >
             <div className="form-group small">
-              <label>Buy Sell (DAPP)</label>
+              <label>Buy Sell (SJ)</label>
               <div className="input-group">
                 <input
                   type="text"
