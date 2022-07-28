@@ -19,19 +19,18 @@ module.exports = {
       network_id: "*" // Match any network id
     },
 
-    kovan:{
+    ropsten:{
       provider: function(){
         return new HDWalletProvider(
           // Private Key
           privateKeys.split(','),
           // URL to an eth node
-          `https://kovan.infura.io/v3/${infuraApiKey}`
-
+          `https://ropsten.infura.io/v3/${infuraApiKey}`
         )
       },
-      gas: 5000000,
+      gas: 4000000,
       gasPrice: 25000000000,
-      network_id: 42
+      network_id: 3
     }
   },
   contracts_directory: './src/contracts/',
@@ -46,3 +45,8 @@ module.exports = {
     }
   }
 }
+
+// Network: kovan (id: 42)
+//   Exchange: 0x0A22b49D21A3dF2C75a3E98C5134515457438D29
+//   Migrations: 0x085e130Ff5f8dD0F94d629599128845509A3a4cD
+//   Token: 0xC9b3F0D1a977C6748f3Cf3cB6BF6928Eec9c5cdB
